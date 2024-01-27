@@ -91,6 +91,6 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        asset_name: ${{ github.event.repository.name }}_v$tag-${{ runner.os }}-${{ matrix.c_compiler }}-portable.zip
+        asset_name: ${{ github.event.repository.name }}_v$tag-${{ runner.os }}-portable.zip
         file: output/package.zip
         tag: ${{ github.ref }}
