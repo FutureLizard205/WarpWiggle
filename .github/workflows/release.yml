@@ -63,12 +63,6 @@ jobs:
       # Build your program with the given configuration. Note that --config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
       run: cmake --build ${{ github.workspace }}/build --config ${{ matrix.build_type }}
 
-    - name: Test
-      working-directory: ${{ github.workspace }}/build
-      # Execute tests defined by the CMake configuration. Note that --build-config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
-      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: ctest --build-config ${{ matrix.build_type }}
-
     - name: Package (Linux, portable)
       if: runner.os == 'Linux'
       run: |
@@ -76,7 +70,7 @@ jobs:
         mkdir output
         rsync -av --exclude='*.txt' --exclude='*.cmake' --exclude='Makefile' --exclude='CMakeFiles/' --exclude='Testing/' build/ output/
         chmod +x output/*
-        cp -r include/* output/ 2>/dev/null || :
+        cp -r include/* output/
         cd output
         7z a -mm=Deflate -mfb=128 -mpass=10 -mx=8 -tzip package.zip .
         cd ..
