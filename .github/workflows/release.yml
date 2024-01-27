@@ -42,6 +42,7 @@ jobs:
         curl -OL https://github.com/libsdl-org/SDL_image/releases/download/release-${{  matrix.sdl_image_version  }}/SDL2_image-devel-${{  matrix.sdl_image_version  }}-mingw.zip
         7z x SDL2*.zip
         cd ..
+        if ( -not ( Test-Path -Path "include" )) {md "include"}
         copy libraries/SDL2*/x86_64*/bin/*.dll include        
 
     - name: Configure CMake (Linux)
