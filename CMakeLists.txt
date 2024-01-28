@@ -3,10 +3,10 @@ project(WarpWiggle C)
 
 set(CMAKE_C_STANDARD 11)
 
+file(GLOB SOURCE_FILES "src/*.c")
+file(GLOB HEADER_FILES "include/*.h")
 
-add_executable(${PROJECT_NAME}
-        src/main.c
-        src/globalConstants.h)
+add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES})
 
 
 INCLUDE(FindPkgConfig)
