@@ -4,6 +4,8 @@
 #include "sdlInclude.h"
 
 #include "globalStructs.h"
+#include "textureManager.h"
+#include "renderer.h"
 
 #define macro_error(condition, message) \
   if (condition) { \
@@ -16,36 +18,40 @@ int main(int argc, char *argv[]) {
   
   // Global Data Initialization
 
-  globalData_t globalData;
+  appData_t app;
 
-  globalData.app.windowHSize = 640;
-  globalData.app.windowVSize = 480;
-  strcpy(globalData.app.windowTitle, "WarpWiggle");
-  globalData.app.fpsLimit = 0;
+  app.windowHSize = 640;
+  app.windowVSize = 480;
+  strcpy(app.windowTitle, "WarpWiggle");
+  app.fpsLimit = 0;
 
 
   // SDL2 Initialization
 
   macro_error(SDL_Init(SDL_INIT_VIDEO) < 0, "Failed to initialize SDL2.");
 
-  globalData.app.window = SDL_CreateWindow(globalData.app.windowTitle,
-                                        SDL_WINDOWPOS_CENTERED,
-                                        SDL_WINDOWPOS_CENTERED,
-                                        globalData.app.windowHSize,
-                                        globalData.app.windowVSize,
-                                        0);
+  app.window = SDL_CreateWindow(app.windowTitle,
+                                SDL_WINDOWPOS_CENTERED,
+                                SDL_WINDOWPOS_CENTERED,
+                                app.windowHSize,
+                                app.windowVSize,
+                                0);
   
-  macro_error(!globalData.app.window, "Failed to create window.");
+  macro_error(!app.window, "Failed to create window.");
 
-  globalData.app.renderer = SDL_CreateRenderer(globalData.app.window, -1, SDL_RENDERER_PRESENTVSYNC);
+  app.renderer = SDL_CreateRenderer(app.window, -1, SDL_RENDERER_PRESENTVSYNC);
 
-  macro_error(!globalData.app.renderer, "Failed to create renderer.");
+  macro_error(!app.renderer, "Failed to create renderer.");
  
+
+  // loadTexture function test
+  SDL_Texture *fontTex = loadTexture(&app, "font");
+
 
   // Game Loop
   
   SDL_Event event;
-  const double fps_limit_ms = 1000 / (double) globalData.app.fpsLimit;
+  const double fps_limit_ms = 1000 / (double) app.fpsLimit;
   uint64_t perfCount_cycle_start;
   uint64_t perfCount_cycle_end;
   double time_cycle;
@@ -66,13 +72,16 @@ int main(int argc, char *argv[]) {
     
 
     // Render
-    SDL_SetRenderDrawColor(globalData.app.renderer, 130, 210, 250, SDL_ALPHA_OPAQUE);
-	  SDL_RenderClear(globalData.app.renderer);
-    SDL_RenderPresent(globalData.app.renderer);
+    SDL_SetRenderDrawColor(app.renderer, 130, 210, 250, SDL_ALPHA_OPAQUE);
+	  SDL_RenderClear(app.renderer);
+    
+    blit(&app, fontTex, 20, 20); // blit function test
+
+    SDL_RenderPresent(app.renderer);
 
 
     // FPS Limiter
-    if (globalData.app.fpsLimit != 0) {
+    if (app.fpsLimit != 0) {
       perfCount_cycle_end = SDL_GetPerformanceCounter();
       time_cycle = 1000 * (perfCount_cycle_end - perfCount_cycle_start) / (double) SDL_GetPerformanceFrequency();
       if (time_cycle < fps_limit_ms) {
