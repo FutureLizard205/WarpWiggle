@@ -78,8 +78,8 @@ int main(int argc, char *argv[]) {
     
     //blit(&app, fontTex, 20, 20); // blit function test
 
-    drawText(&app, fontTex, "abcxyz.:12345;,ABCDE!-?", 20, 20, LEFT_ALIGNMENT); // drawText function test
-
+    drawText(&app, fontTex, "abcxyz.:12345;,ABCDE!-?", 210, 20, LEFT_ALIGNMENT); // drawText function test
+    
 
     SDL_RenderPresent(app.renderer);
 

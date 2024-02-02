@@ -1,6 +1,6 @@
 #include "fonts.h"
 
-void drawText(appData_t *app, SDL_Texture *fontTexture, char *text, uint8_t x, uint8_t y, enum fontAlignment alignment) {  
+void drawText(appData_t *app, SDL_Texture *fontTexture, char *text, uint_fast16_t x, uint_fast16_t y, enum fontAlignment alignment) {  
 
   /*
   *   TODO:
