@@ -5,7 +5,8 @@
 
 #include "globalStructs.h"
 #include "textureManager.h"
-#include "renderer.h"
+#include "rendering/renderer.h"
+#include "rendering/fonts.h"
 
 #define macro_error(condition, message) \
   if (condition) { \
@@ -75,7 +76,10 @@ int main(int argc, char *argv[]) {
     SDL_SetRenderDrawColor(app.renderer, 130, 210, 250, SDL_ALPHA_OPAQUE);
 	  SDL_RenderClear(app.renderer);
     
-    blit(&app, fontTex, 20, 20); // blit function test
+    //blit(&app, fontTex, 20, 20); // blit function test
+
+    drawText(&app, fontTex, "abcxyz.:12345;,ABCDE!-?", 20, 20, LEFT_ALIGNMENT); // drawText function test
+
 
     SDL_RenderPresent(app.renderer);
 
