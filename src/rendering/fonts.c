@@ -97,16 +97,18 @@ SDL_Rect *fontRectCacheCreate() {
 
 void drawText(appData_t *app, SDL_Texture *fontTexture, SDL_Rect *fontRectCache, char *text, uint_fast16_t x, uint_fast16_t y, enum fontAlignment alignment) {  
 
-  /*
-  *   TODO:
-  *     Add font alignment feature
-  */
+  // Alignment offset
+  if (alignment != LEFT_ALIGNMENT) {
+    uint_fast16_t size = strlen(text) * charWidth;
+    x -= (alignment*size)/2;
+  }
+
 
   uint_fast16_t i = 0;
   while(text[i] != '\0') {
 
     // Draw the character
-    blit(app, fontTexture, fontRectCache + text[i] - 32, x, y, charWidth, charHeight);
+    blit(app, fontTexture, fontRectCache + text[i] - ASCII_FONT_OFFSET, x, y, charWidth, charHeight);
   
     // Increment
     x+=charWidth;
