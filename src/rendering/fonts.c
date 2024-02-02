@@ -95,6 +95,11 @@ SDL_Rect *fontRectCacheCreate() {
 }
 
 
+void setFontColor(SDL_Texture *fontTexture, uint8_t r, uint8_t g, uint8_t b) {
+  SDL_SetTextureColorMod(fontTexture, r, g, b);
+}
+
+
 void drawText(appData_t *app, SDL_Texture *fontTexture, SDL_Rect *fontRectCache, char *text, uint_fast16_t x, uint_fast16_t y, enum fontAlignment alignment) {  
 
   // Alignment offset
