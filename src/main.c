@@ -47,7 +47,9 @@ int main(int argc, char *argv[]) {
 
   // loadTexture function test
   SDL_Texture *fontTex = loadTexture(&app, "font");
-
+  
+  // Font Cache
+  SDL_Rect *fontRectCache = fontRectCacheCreate();
 
   // Game Loop
   
@@ -78,10 +80,14 @@ int main(int argc, char *argv[]) {
     
     //blit(&app, fontTex, 20, 20); // blit function test
 
-    drawText(&app, fontTex, "abcxyz.:12345;,ABCDE!-?", 210, 20, LEFT_ALIGNMENT); // drawText function test
-    
+    // drawText function tests
+    drawText(&app, fontTex, fontRectCache, "abcxyz.:12345;,ABCDE!-?", 210, 20, LEFT_ALIGNMENT);  
+    drawText(&app, fontTex, fontRectCache, "Some text is here 123", 250, 120, LEFT_ALIGNMENT);
+    drawText(&app, fontTex, fontRectCache, "Some text is here 123", 250, 130, CENTER_ALIGNMENT);
+    drawText(&app, fontTex, fontRectCache, "Some text is here 123", 250, 140, RIGHT_ALIGNMENT);
 
-    SDL_RenderPresent(app.renderer);
+
+   SDL_RenderPresent(app.renderer);
 
 
     // FPS Limiter

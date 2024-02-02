@@ -1,83 +1,113 @@
 #include "fonts.h"
 
-void drawText(appData_t *app, SDL_Texture *fontTexture, char *text, uint_fast16_t x, uint_fast16_t y, enum fontAlignment alignment) {  
+
+SDL_Rect *fontRectCacheCreate() {
+  /*
+   *  Goes through the ASCII table, beginning in address 32 (char '0')
+   *  and ending in 126 (char '~').
+   */
+  
+  SDL_Rect *cache = malloc((127 - ASCII_FONT_OFFSET) * sizeof(SDL_Rect));
+
+
+  for(char i = ASCII_FONT_OFFSET; i < 127; i++) {
+    
+    cache[i-ASCII_FONT_OFFSET].w = charWidth;
+    cache[i-ASCII_FONT_OFFSET].h = charHeight;
+    
+    if (isdigit(i)) {
+
+      // Digit (0 - 9)
+      
+      cache[i-ASCII_FONT_OFFSET].x = (i - '0') * charWidth;
+      cache[i-ASCII_FONT_OFFSET].y = 2 * charHeight;
+      
+      continue;
+    }
+
+    if (isalpha(i)) {
+      
+      // Alpha (A - Z, a - z)
+
+      if (isupper(i)) {
+
+        // Upper case (A - Z)
+        
+        cache[i-ASCII_FONT_OFFSET].x = (i - 'A') * charWidth;
+        cache[i-ASCII_FONT_OFFSET].y = 0;
+
+      } else {
+        
+        // Lower case (a - z)
+
+        cache[i-ASCII_FONT_OFFSET].x = (i - 'a') * charWidth;
+        cache[i-ASCII_FONT_OFFSET].y = charHeight;
+      
+      }
+
+      continue;
+    }
+    
+
+    // Other chars
+
+    cache[i-ASCII_FONT_OFFSET].y = 2 * charHeight;
+      
+    switch (i) {
+      case '.':
+        cache[i-ASCII_FONT_OFFSET].x = 10 * charWidth;
+        break;
+      
+      case ',':
+        cache[i-ASCII_FONT_OFFSET].x = 11 * charWidth;
+        break;
+      
+      case ':':
+        cache[i-ASCII_FONT_OFFSET].x = 12 * charWidth;
+        break;
+      
+      case ';':
+        cache[i-ASCII_FONT_OFFSET].x = 13 * charWidth;
+        break;
+      
+      case '-':
+        cache[i-ASCII_FONT_OFFSET].x = 14 * charWidth;
+        break;
+
+      case '!':
+        cache[i-ASCII_FONT_OFFSET].x = 15 * charWidth;
+        break;
+      
+      case ' ':
+        cache[i-ASCII_FONT_OFFSET].x = 17 * charWidth;
+        break;
+
+      default:
+        // '?'
+        cache[i-ASCII_FONT_OFFSET].x = 16 * charWidth;
+        break;
+    }
+  
+  }
+
+  
+  return cache;
+}
+
+
+void drawText(appData_t *app, SDL_Texture *fontTexture, SDL_Rect *fontRectCache, char *text, uint_fast16_t x, uint_fast16_t y, enum fontAlignment alignment) {  
 
   /*
   *   TODO:
   *     Add font alignment feature
   */
 
-  SDL_Rect sourceRect;
-  
-  sourceRect.h = charHeight;
-  sourceRect.w = charWidth;
-
   uint_fast16_t i = 0;
   while(text[i] != '\0') {
-    
-    if (isdigit(text[i])) {
-      // Digit (0 - 9)
 
-      sourceRect.y = 2 * charHeight;
-      sourceRect.x = (text[i] - '0') * charWidth;
-
-    } else if (isalpha(text[i])) {
-      // Alpha (A - Z, a - z)
-      
-      if (!islower(text[i])) {
-        // Lower case alpha (a - z)
-        
-        sourceRect.y = 0;
-        sourceRect.x = (text[i] - 'A') * charWidth;
-      
-      } else {
-        // Upper case alpha (A - Z)
-
-        sourceRect.y = charHeight;
-        sourceRect.x = (text[i] - 'a') * charWidth;
-      
-      }
-    } else {
-      // Not alphanumeric
-      
-      sourceRect.y = 2 * charHeight;
-      
-      switch (text[i]) {
-        case '.':
-          sourceRect.x = 10 * charWidth;
-          break;
-        
-        case ',':
-          sourceRect.x = 11 * charWidth;
-          break;
-        
-        case ':':
-          sourceRect.x = 12 * charWidth;
-          break;
-        
-        case ';':
-          sourceRect.x = 13 * charWidth;
-          break;
-        
-        case '-':
-          sourceRect.x = 14 * charWidth;
-          break;
-
-        case '!':
-          sourceRect.x = 15 * charWidth;
-          break;
-        
-        default:
-          // '?'
-          sourceRect.x = 16 * charWidth;
-          break;
-      
-      }
-    }
-    
     // Draw the character
-    blit(app, fontTexture, &sourceRect, x, y, charWidth, charHeight);
-    
+    blit(app, fontTexture, fontRectCache + text[i] - 32, x, y, charWidth, charHeight);
+  
     // Increment
     x+=charWidth;
     i++;
