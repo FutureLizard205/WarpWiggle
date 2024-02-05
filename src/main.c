@@ -3,17 +3,13 @@
 #include <string.h>
 #include "sdlInclude.h"
 
+#include "globalMacros.h"
 #include "globalStructs.h"
 #include "textureManager.h"
 #include "rendering/renderer.h"
 #include "rendering/fonts.h"
 
-#define macro_error(condition, message) \
-  if (condition) { \
-    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", message, NULL); \
-    return EXIT_FAILURE; \
-  }
-
+#include "map/loader.h"
 
 int main(int argc, char *argv[]) {
   
@@ -25,7 +21,6 @@ int main(int argc, char *argv[]) {
   app.windowVSize = 480;
   strcpy(app.windowTitle, "WarpWiggle");
   app.fpsLimit = 0;
-
 
   // SDL2 Initialization
 
@@ -50,6 +45,12 @@ int main(int argc, char *argv[]) {
   
   // Font Cache
   SDL_Rect *fontRectCache = fontRectCacheCreate();
+
+
+
+  // Map load test
+  loadMapFile("01");
+
 
   // Game Loop
   
