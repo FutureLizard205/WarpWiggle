@@ -74,7 +74,7 @@ mapData_t *loadMapFile(const char *mapName) {
     strcpy(filePath2, "include/");
     strcat(filePath2, filePath);
     
-    SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Error, trying %s instead...", filePath2);
+    SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "Error, trying %s instead...", filePath2);
     
     mapFile = fopen(filePath2, "rb");
     

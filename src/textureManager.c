@@ -22,7 +22,7 @@ SDL_Texture *loadTexture(const appData_t* app, const char* filename) {
     strcpy(filePath2, "include/");
     strcat(filePath2, filePath);
 
-    SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Error, trying %s instead...", filePath2);
+    SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "Error, trying %s instead...", filePath2);
     
     texture = IMG_LoadTexture(app->renderer, filePath2);
     

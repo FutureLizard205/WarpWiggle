@@ -26,6 +26,8 @@ int main(int argc, char *argv[]) {
 
   macro_error(SDL_Init(SDL_INIT_VIDEO) < 0, "Failed to initialize SDL2.");
 
+  SDL_LogSetAllPriority(SDL_LOG_PRIORITY_INFO);
+
   app.window = SDL_CreateWindow(app.windowTitle,
                                 SDL_WINDOWPOS_CENTERED,
                                 SDL_WINDOWPOS_CENTERED,
