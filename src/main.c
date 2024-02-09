@@ -5,9 +5,13 @@
 
 #include "globalMacros.h"
 #include "globalStructs.h"
+
 #include "textureManager.h"
+#include "snakeManager.h"
+
 #include "rendering/renderer.h"
 #include "rendering/fonts.h"
+#include "rendering/snake.h"
 
 #include "map/loader.h"
 
@@ -44,14 +48,37 @@ int main(int argc, char *argv[]) {
 
   // loadTexture function test
   SDL_Texture *fontTex = loadTexture(&app, "font");
-  
+  SDL_Texture *snakeTex = loadTexture(&app, "snake1");
+
   // Font Cache
   SDL_Rect *fontRectCache = fontRectCacheCreate();
 
 
-
   // Map load test
-  loadMapFile("01");
+  mapData_t *map = loadMapFile("01");
+  
+  // snakeManager test
+  snakeData_t *snake = getSnakeDataFromInitialData(*map);
+  
+
+  // Snake Data for testing
+  snake->tailLength += 2;
+  
+  snake->tiles[0].x = 1;
+  snake->tiles[0].y = 1;
+  snake->tiles[0].headedFromDirection = 1;
+
+  snake->tiles[1].x = 0;
+  snake->tiles[1].y = 1;
+  snake->tiles[1].headedFromDirection = 2;
+
+  snake->tiles[2].x = 0;
+  snake->tiles[2].y = 0;
+  snake->tiles[2].headedFromDirection = 3;
+
+  snake->tiles[3].x = 1;
+  snake->tiles[3].y = 0;
+
 
 
   // Game Loop
@@ -93,8 +120,10 @@ int main(int argc, char *argv[]) {
     setFontColor(fontTex, COLOR_BLUE);
     drawText(&app, fontTex, fontRectCache, "Some text is here 123", 250, 140, RIGHT_ALIGNMENT);
 
+    // drawSnake function test
+    drawSnake(&app, snakeTex, *snake);
 
-   SDL_RenderPresent(app.renderer);
+    SDL_RenderPresent(app.renderer);
 
 
     // FPS Limiter

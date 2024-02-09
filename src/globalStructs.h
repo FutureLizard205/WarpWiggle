@@ -16,7 +16,7 @@ typedef struct {
 typedef struct {
   uint_fast8_t x;
   uint_fast8_t y;
-  uint_fast8_t headedFromDirection; // 0 = top, 1 = right, 2 = bottom, 3 = left
+  uint_fast8_t headedFromDirection; // 0 = bottom, 1 = left, 2 = top, 3 = right
   // The direction where each tile is headed towoards corresponds to the reverse headedFromDirection of the next one
 } snakeTileData_t;
 
