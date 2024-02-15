@@ -1,6 +1,12 @@
 #include "fonts.h"
 
-
+/*
+ * This function creates a cache which consists of an array of SDL_Rect, 
+ * one element for each drawable character, which is used to draw text.
+ *
+ * It allows the drawText() function not to waste time looking for the 
+ * character it wants to draw in the fontTexture.
+ */
 SDL_Rect *fontRectCacheCreate() {
   /*
    *  Goes through the ASCII table, beginning in address 32 (char '0')

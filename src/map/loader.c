@@ -1,5 +1,14 @@
 #include "loader.h"
 
+/*
+* This function is used to determine the connections of the map tiles,
+* to be used when rendering them.
+* A tile is considered connected to another one if they have the same id.
+*
+* It returns an array of uint_fast8_t, each element relative to each tile,
+* where the 0s indicate no connection, and the 1s a connection, 
+* going clockwise, from LSb to MSb, starting in the tile directly above.
+*/
 uint_fast8_t *calcTileConnections(mapData_t *mapData) {
   
   uint_fast8_t h = mapData->hSize + 1;
@@ -146,7 +155,7 @@ mapData_t *loadMapFile(const char *mapName) {
   mapData->tileConnections = calcTileConnections(mapData);
 
   // Test
-
+  /*
   for(i = 0; i <= mapData->hSize; i++) {
     for(uint16_t j = 0; j <= mapData->vSize; j++) {
       printf("%d ",*(mapData->tiles+j+(mapData->hSize+1)*i));
@@ -164,7 +173,7 @@ mapData_t *loadMapFile(const char *mapName) {
           printf("\n");
     }
   }
-
+  */
 
 
 
