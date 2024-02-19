@@ -101,12 +101,12 @@ SDL_Rect *fontRectCacheCreate() {
 }
 
 
-void setFontColor(SDL_Texture *fontTexture, uint8_t r, uint8_t g, uint8_t b) {
-  SDL_SetTextureColorMod(fontTexture, r, g, b);
+void setFontColor(textures_t *textures, uint8_t r, uint8_t g, uint8_t b) {
+  SDL_SetTextureColorMod(textures->fontTexture, r, g, b);
 }
 
 
-void drawText(appData_t *app, SDL_Texture *fontTexture, SDL_Rect *fontRectCache, char *text, uint_fast16_t x, uint_fast16_t y, enum fontAlignment alignment) {  
+void drawText(appData_t *app, textures_t *textures, SDL_Rect *fontRectCache, char *text, uint_fast16_t x, uint_fast16_t y, enum fontAlignment alignment) {  
 
   // Alignment offset
   if (alignment != LEFT_ALIGNMENT) {
@@ -119,7 +119,7 @@ void drawText(appData_t *app, SDL_Texture *fontTexture, SDL_Rect *fontRectCache,
   while(text[i] != '\0') {
 
     // Draw the character
-    blit(app, fontTexture, fontRectCache + text[i] - ASCII_FONT_OFFSET, x, y, charWidth, charHeight);
+    blit(app, textures->fontTexture, fontRectCache + text[i] - ASCII_FONT_OFFSET, x, y, charWidth, charHeight);
   
     // Increment
     x+=charWidth;

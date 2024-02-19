@@ -46,9 +46,8 @@ int main(int argc, char *argv[]) {
   macro_error(!app.renderer, "Failed to create renderer.");
  
 
-  // loadTexture function test
-  SDL_Texture *fontTex = loadTexture(&app, "font");
-  SDL_Texture *snakeTex = loadTexture(&app, "snake1");
+  // loadTextures function test
+  textures_t *textures = loadTextures(&app);
 
   // Font Cache
   SDL_Rect *fontRectCache = fontRectCacheCreate();
@@ -111,17 +110,17 @@ int main(int argc, char *argv[]) {
     //blit(&app, fontTex, 20, 20); // blit function test
 
     // drawText function tests
-    setFontColor(fontTex, COLOR_WHITE);
-    drawText(&app, fontTex, fontRectCache, "abcxyz.:12345;,ABCDE!-?", 210, 20, LEFT_ALIGNMENT);  
-    setFontColor(fontTex, COLOR_BLACK);
-    drawText(&app, fontTex, fontRectCache, "Some text is here 123", 250, 120, LEFT_ALIGNMENT);
-    setFontColor(fontTex, COLOR_RED);
-    drawText(&app, fontTex, fontRectCache, "Some text is here 123", 250, 130, CENTER_ALIGNMENT);
-    setFontColor(fontTex, COLOR_BLUE);
-    drawText(&app, fontTex, fontRectCache, "Some text is here 123", 250, 140, RIGHT_ALIGNMENT);
+    setFontColor(textures, COLOR_WHITE);
+    drawText(&app, textures, fontRectCache, "abcxyz.:12345;,ABCDE!-?", 210, 20, LEFT_ALIGNMENT);  
+    setFontColor(textures, COLOR_BLACK);
+    drawText(&app, textures, fontRectCache, "Some text is here 123", 250, 120, LEFT_ALIGNMENT);
+    setFontColor(textures, COLOR_RED);
+    drawText(&app, textures, fontRectCache, "Some text is here 123", 250, 130, CENTER_ALIGNMENT);
+    setFontColor(textures, COLOR_BLUE);
+    drawText(&app, textures, fontRectCache, "Some text is here 123", 250, 140, RIGHT_ALIGNMENT);
 
     // drawSnake function test
-    drawSnake(&app, snakeTex, *snake);
+    drawSnake(&app, textures, *snake);
 
     SDL_RenderPresent(app.renderer);
 

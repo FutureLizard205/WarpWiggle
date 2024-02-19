@@ -19,6 +19,6 @@ enum fontAlignment {LEFT_ALIGNMENT, CENTER_ALIGNMENT, RIGHT_ALIGNMENT};
 
 SDL_Rect *fontRectCacheCreate(); 
 
-void setFontColor(SDL_Texture *fontTexture, uint8_t r, uint8_t g, uint8_t b);
+void setFontColor(textures_t *textures, uint8_t r, uint8_t g, uint8_t b);
 
-void drawText(appData_t *app, SDL_Texture *fontTexture, SDL_Rect *fontRectCache, char *text, uint_fast16_t x, uint_fast16_t y, enum fontAlignment alignment);
+void drawText(appData_t *app, textures_t *textures, SDL_Rect *fontRectCache, char *text, uint_fast16_t x, uint_fast16_t y, enum fontAlignment alignment);

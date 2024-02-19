@@ -1,11 +1,15 @@
 #include "textureManager.h"
 
-SDL_Texture *loadTexture(const appData_t* app, const char* filename) {
+SDL_Texture *loadTextureFile(const appData_t *app, const char *filename, bool isTile) {
   SDL_Texture *texture = NULL; 
 
-  char *filePath = malloc(50 * sizeof(char));
+  char *filePath = malloc(56 * sizeof(char));
 
   strcpy(filePath, "assets/textures/");
+  
+  if (isTile)
+    strcat(filePath, "tiles/");
+
   strcat(filePath, filename);
   strcat(filePath, ".png");
   
@@ -18,7 +22,7 @@ SDL_Texture *loadTexture(const appData_t* app, const char* filename) {
     // In the development environment, the assets folder may be inside of the include folder.
     // This takes care of that:
 
-    char *filePath2 = malloc(58 * sizeof(char));
+    char *filePath2 = malloc(64 * sizeof(char));
     strcpy(filePath2, "include/");
     strcat(filePath2, filePath);
 
@@ -37,4 +41,17 @@ SDL_Texture *loadTexture(const appData_t* app, const char* filename) {
   filePath = NULL;
 
   return texture;
+}
+
+
+textures_t *loadTextures(const appData_t *app) {
+  textures_t *textures = malloc(sizeof(textures_t));
+  textures->tilesTextures = malloc(0xFF * sizeof(SDL_Texture*));
+  
+  textures->snakeTexture = loadTextureFile(app, "snake1", 0);
+  textures->fontTexture = loadTextureFile(app, "font", 0);
+
+  textures->tilesTextures[0] = loadTextureFile(app, "00", 1);
+
+  return textures;
 }

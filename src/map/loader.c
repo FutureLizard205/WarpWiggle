@@ -1,13 +1,15 @@
 #include "loader.h"
 
 /*
-* This function is used to determine the connections of the map tiles,
-* to be used when rendering them.
+* This function is used to determine the connections of the map tiles, to be 
+* used when rendering them.
 * A tile is considered connected to another one if they have the same id.
+* It ignores all tiles with even ids (LSb == 0), as they don't need this data to
+* be rendered.
 *
-* It returns an array of uint_fast8_t, each element relative to each tile,
-* where the 0s indicate no connection, and the 1s a connection, 
-* going clockwise, from LSb to MSb, starting in the tile directly above.
+* It returns an array of uint_fast8_t, each element relative to each tile, where
+* the 0s indicate no connection, and the 1s a connection,  going clockwise, from
+* LSb to MSb, starting in the tile directly above.
 */
 uint_fast8_t *calcTileConnections(mapData_t *mapData) {
   
@@ -21,6 +23,11 @@ uint_fast8_t *calcTileConnections(mapData_t *mapData) {
     for(uint_fast8_t j = 0; j < v; j++){
       
       currentTile = mapData->tiles[h*i+j];
+      
+      // Skip if id is an even number
+      if ((currentTile & 0b1) == 0)
+        continue;
+
       if(i != 0) {
         if(mapData->tiles[h*(i-1)+j] == currentTile)
           tileConnections[h*i+j] |= 0b00000001;

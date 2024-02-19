@@ -2,7 +2,7 @@
 
 #define TEXTURE_RESOLUTION 16
 
-void drawSnake(appData_t *app, SDL_Texture *snakeTexture, snakeData_t snakeData) {
+void drawSnake(appData_t *app, textures_t *textures, snakeData_t snakeData) {
   SDL_Rect sourceRect;
   sourceRect.h = TEXTURE_RESOLUTION;
   sourceRect.w = TEXTURE_RESOLUTION;
@@ -43,7 +43,7 @@ void drawSnake(appData_t *app, SDL_Texture *snakeTexture, snakeData_t snakeData)
     sourceRect.x = TEXTURE_RESOLUTION * (id % 4);
     sourceRect.y = TEXTURE_RESOLUTION * (id / 4);
 
-    blit(app, snakeTexture, &sourceRect, TEXTURE_RESOLUTION * snakeData.tiles[i].x, TEXTURE_RESOLUTION * snakeData.tiles[i].y, TEXTURE_RESOLUTION, TEXTURE_RESOLUTION);
+    blit(app, textures->snakeTexture, &sourceRect, TEXTURE_RESOLUTION * snakeData.tiles[i].x, TEXTURE_RESOLUTION * snakeData.tiles[i].y, TEXTURE_RESOLUTION, TEXTURE_RESOLUTION);
   }
   
 }

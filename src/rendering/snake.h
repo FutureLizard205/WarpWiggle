@@ -5,4 +5,4 @@
 #include "../globalStructs.h"
 #include "renderer.h"
 
-void drawSnake(appData_t *app, SDL_Texture *snakeTexture, snakeData_t snakeData); 
+void drawSnake(appData_t *app, textures_t *textures, snakeData_t snakeData); 
