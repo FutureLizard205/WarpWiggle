@@ -12,6 +12,7 @@
 #include "rendering/renderer.h"
 #include "rendering/fonts.h"
 #include "rendering/snake.h"
+#include "rendering/tiles.h"
 
 #include "map/loader.h"
 
@@ -121,6 +122,10 @@ int main(int argc, char *argv[]) {
 
     // drawSnake function test
     drawSnake(&app, textures, *snake);
+
+    // drawMapTiles function test
+    drawMapTiles(&app, textures, map, 16, 16);
+
 
     SDL_RenderPresent(app.renderer);
 

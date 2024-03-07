@@ -43,7 +43,11 @@ void drawSnake(appData_t *app, textures_t *textures, snakeData_t snakeData) {
     sourceRect.x = TEXTURE_RESOLUTION * (id % 4);
     sourceRect.y = TEXTURE_RESOLUTION * (id / 4);
 
-    blit(app, textures->snakeTexture, &sourceRect, TEXTURE_RESOLUTION * snakeData.tiles[i].x, TEXTURE_RESOLUTION * snakeData.tiles[i].y, TEXTURE_RESOLUTION, TEXTURE_RESOLUTION);
+    blit(app, textures->snakeTexture, &sourceRect, 
+    TEXTURE_RESOLUTION * snakeData.tiles[i].x, 
+    TEXTURE_RESOLUTION * snakeData.tiles[i].y, 
+    TEXTURE_RESOLUTION, 
+    TEXTURE_RESOLUTION);
   }
   
 }

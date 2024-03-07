@@ -52,6 +52,8 @@ textures_t *loadTextures(const appData_t *app) {
   textures->fontTexture = loadTextureFile(app, "font", 0);
 
   textures->tilesTextures[0] = loadTextureFile(app, "00", 1);
+  textures->tilesTextures[0x10] = loadTextureFile(app, "10", 1);
+
 
   return textures;
 }
