@@ -6,38 +6,45 @@
 #include "globalMacros.h"
 #include "globalStructs.h"
 
+#include "windowManager.h"
 #include "textureManager.h"
 #include "snakeManager.h"
 
-#include "rendering/renderer.h"
 #include "rendering/fonts.h"
 #include "rendering/snake.h"
 #include "rendering/tiles.h"
 
 #include "map/loader.h"
 
+#define TEXTURE_RESOLUTION 16
+
 int main(int argc, char *argv[]) {
   
-  // Global Data Initialization
-
-  appData_t app;
-
-  app.windowHSize = 640;
-  app.windowVSize = 480;
-  strcpy(app.windowTitle, "WarpWiggle");
-  app.fpsLimit = 0;
-
   // SDL2 Initialization
 
   macro_error(SDL_Init(SDL_INIT_VIDEO) < 0, "Failed to initialize SDL2.");
 
   SDL_LogSetAllPriority(SDL_LOG_PRIORITY_INFO);
 
+
+  // Global Data Initialization
+
+  appData_t app;
+
+  strcpy(app.windowTitle, "WarpWiggle");
+  app.fpsLimit = 0;
+  app.windowHTiles = 32;
+  app.windowVTiles = 20;
+  app.renderingScale = getMaxWindowScale(&app);
+  
+  
+  // Window and Render Initialization
+
   app.window = SDL_CreateWindow(app.windowTitle,
                                 SDL_WINDOWPOS_CENTERED,
                                 SDL_WINDOWPOS_CENTERED,
-                                app.windowHSize,
-                                app.windowVSize,
+                                TEXTURE_RESOLUTION * app.windowHTiles * app.renderingScale,
+                                TEXTURE_RESOLUTION * app.windowVTiles * app.renderingScale,
                                 0);
   
   macro_error(!app.window, "Failed to create window.");

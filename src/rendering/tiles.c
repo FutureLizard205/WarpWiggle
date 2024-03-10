@@ -15,7 +15,7 @@ void drawMapTiles(appData_t *app, textures_t *textures, mapData_t *mapData, uint
   uint_fast8_t vSize = mapData->vSize;
   SDL_Rect srcRect;
   bool lastOneWasEven = false;
-  printf("\n\n");
+  
   for(uint_fast8_t v = 0; v <= vSize; v++) {
     for(uint_fast8_t h = 0; h <= hSize; h++) {
       tileID = mapData->tiles[v*(hSize+1)+h];
@@ -45,6 +45,5 @@ void drawMapTiles(appData_t *app, textures_t *textures, mapData_t *mapData, uint
       vOffset + v * TEXTURE_RESOLUTION, 
       TEXTURE_RESOLUTION, TEXTURE_RESOLUTION);
     }
-    printf("\n");
   }
 }

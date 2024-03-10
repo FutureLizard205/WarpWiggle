@@ -7,10 +7,11 @@
 typedef struct {
   SDL_Window* window;
   SDL_Renderer *renderer;
-  uint16_t windowHSize;
-  uint16_t windowVSize;
+  uint_fast16_t windowHTiles;
+  uint_fast16_t windowVTiles;
   char windowTitle[16];
-  uint16_t fpsLimit;
+  uint_fast16_t fpsLimit;
+  uint_fast8_t renderingScale;
 } appData_t;
 
 
